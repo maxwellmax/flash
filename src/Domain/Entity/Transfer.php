@@ -165,5 +165,13 @@ class Transfer
         return $this->payee;
     }
 
+    /**
+     * @param Transferstatus $transferstatus
+     */
+    public function changeTransferStatus(Transferstatus $transferstatus)
+    {
+        $this->transferStatus = $transferstatus;
+    }
+
 
 }

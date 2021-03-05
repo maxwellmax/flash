@@ -71,23 +71,42 @@ class TransferTransactionCommandHandler
             throw new DomainException('Usuário não tem permisso para transferencia.');
         }
 
-        /** @var Transferstatus $transferStatus */
-        $transferStatus = $this->transferStatusRepository->find(Transferstatus::TRANSFER_STATUS_AUTORIZADO);
-
-        $transfer = new Transfer(
-            $command->getUuid()->toString(),
-            $command->getValue(),
-            $transferStatus,
-            $payer,
-            $payee
-        );
-
-        if ($this->authorizerTransfer()) {
-            $this->updateWalletBalance($payee->getWallet(), $command->getValue());
-            $this->transferRepository->save($transfer);
+        if (!$this->hasBalanceToTransaction($payer->getWallet()->getBalance(), $command->getValue())) {
+            throw new DomainException('Usuário não tem saldo suficiente');
         }
 
-        $command->setMessage('Transferência realizada com sucesso.');
+        try {
+            /** @var Transferstatus $transferStatus */
+            $transferStatus = $this->transferStatusRepository->find(Transferstatus::TRANSFER_STATUS_AUTORIZADO);
+
+            $transfer = new Transfer(
+                $command->getUuid()->toString(),
+                $command->getValue(),
+                $transferStatus,
+                $payer,
+                $payee
+            );
+
+            if ($this->authorizerTransfer()) {
+                $balanceTotalPayee = $this->calculeBalanceTotal($payee->getWallet()->getBalance(), $command->getValue(), '+');
+                $balanceTotalPayer = $this->calculeBalanceTotal($payer->getWallet()->getBalance(), $command->getValue(), '-');
+
+                $payee->getWallet()->put($balanceTotalPayee);
+                $payer->getWallet()->put($balanceTotalPayer);
+                $this->walletRepository->update();
+            } else {
+                /** @var Transferstatus $transferStatus */
+                $transferStatus = $this->transferStatusRepository->find(Transferstatus::TRANSFER_STATUS_ESTORNADO);
+                $transfer->changeTransferStatus($transferStatus);
+            }
+
+
+            $this->transferRepository->save($transfer);
+
+            $command->setMessage('Transferência realizada com sucesso.');
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -108,19 +127,35 @@ class TransferTransactionCommandHandler
         return true;
     }
 
-    /**
-     * @param Wallet $wallet
-     * @param $value
-     * @throws \Exception
-     */
-    private function updateWalletBalance(Wallet $wallet, $value)
+    private function calculeBalanceTotal($balance, $value, $operator)
     {
-        $value = str_replace(array('.', ','), array('', '.'), $value);
-        $balance = str_replace(array('.', ','), array('', '.'), $wallet->getBalance());
+        $value = str_replace(array(',', '.'), array('', '.'), $value);
+        $balance = str_replace(array(',', '.'), array('', '.'), $balance);
 
-        $balanceTotal = ($value + $balance);
+        $total = 0;
+        switch ($operator) {
+            case '-':
+                $total = $balance - $value;
+                break;
+            case '+':
+                $total =  $balance + $value;
+                break;
+        }
 
-        $wallet->put($balanceTotal);
-        $this->walletRepository->update();
+        return number_format($total, 2);
+    }
+
+    /**
+     * @param $balance
+     * @param $value
+     * @return bool
+     */
+    private function hasBalanceToTransaction($balance, $value)
+    {
+        if (strval($balance) >= strval($value)) {
+            return true;
+        }
+
+        return false;
     }
 }
