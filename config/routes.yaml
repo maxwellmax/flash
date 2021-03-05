@@ -21,3 +21,6 @@ api_user:
 
 api_wallet:
   resource: 'routes/wallet.yaml'
+
+api_transfer:
+  resource: 'routes/transfer.yaml'

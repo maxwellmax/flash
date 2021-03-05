@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserType
 {
+    const USER_TYPE_COMUM = 1;
+    const USER_TYPE_LOJISTA = 2;
+
     /**
      * @var int
      *

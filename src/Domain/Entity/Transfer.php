@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Transfer", indexes={@ORM\Index(name="Transfer_TransferStatus_uuid_fk", columns={"id_transfer_status"}),
  *      @ORM\Index(name="Transfer_User_id_fk", columns={"payer"}),
- *      @ORM\Index(name="Transfer_TransferType_uuid_fk", columns={"id_type_transfer"}),
  *      @ORM\Index(name="Transfer_User_id_fk_2", columns={"payee"})})
  * @ORM\Entity
  */
@@ -63,16 +62,6 @@ class Transfer
     private $transferStatus;
 
     /**
-     * @var Transfertype
-     *
-     * @ORM\ManyToOne(targetEntity="Transfertype")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_type_transfer", referencedColumnName="id")
-     * })
-     */
-    private $transferType;
-
-    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -91,6 +80,26 @@ class Transfer
      * })
      */
     private $payee;
+
+    /**
+     * Transfer constructor.
+     * @param string $uuid
+     * @param string $value
+     * @param Transferstatus $transferStatus
+     * @param User $payer
+     * @param User $payee
+     * @throws \Exception
+     */
+    public function __construct(string $uuid, string $value, Transferstatus $transferStatus, User $payer, User $payee)
+    {
+        $this->uuid = $uuid;
+        $this->value = $value;
+        $this->transferStatus = $transferStatus;
+        $this->payer = $payer;
+        $this->payee = $payee;
+        $this->createdAt = new \Datetime();
+        $this->updatedAt = new \Datetime();
+    }
 
     /**
      * @return int
@@ -138,14 +147,6 @@ class Transfer
     public function getTransferStatus(): Transferstatus
     {
         return $this->transferStatus;
-    }
-
-    /**
-     * @return Transfertype
-     */
-    public function getTransferType(): Transfertype
-    {
-        return $this->transferType;
     }
 
     /**

@@ -1,0 +1,4 @@
+api_wallet_create:
+  path: /api/transaction
+  controller: App\Application\Controller\TransferController::transaction
+  methods: POST
