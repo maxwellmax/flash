@@ -41,7 +41,7 @@ class UserGetByIdQueryHandler
             "name" => $user->getName(),
             "email" => $user->getEmail(),
             "cpf_cnpj" => $user->getCpfCnpj(),
-            "type" => $user->getType()->getType(),
+            "type" => $user->getUserType()->getType(),
             "createdAt" => $user->getCreatedAt()->format('Y-m-d H:i:s'),
             "updatedAt" => $user->getUpdatedAt()->format('Y-m-d H:i:s')
         ];

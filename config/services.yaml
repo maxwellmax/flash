@@ -36,6 +36,13 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
+    wallet_command_handlers:
+        namespace: App\Domain\Action\Command\Wallet\Handler\
+        resource: '%kernel.project_dir%/src/Domain/Action/Command/Wallet/Handler/*CommandHandler.php'
+        autoconfigure: false
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+
     query_handlers:
         namespace: App\Domain\Action\Query\Handler\
         resource: '%kernel.project_dir%/src/Domain/Action/Query/Handler/*QueryHandler.php'

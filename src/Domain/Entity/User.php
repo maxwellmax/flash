@@ -10,7 +10,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  *
- * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="User_email_uindex", columns={"email"})})
+ * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="User_cpf_cnpj_uindex", columns={"cpf_cnpj"}),
+ *      @ORM\UniqueConstraint(name="User_email_uindex", columns={"email"})},
+ *      indexes={@ORM\Index(name="User_UserType_uuid_fk", columns={"id_user_type"}),
+ *      @ORM\Index(name="User_Wallet_id_fk", columns={"id_wallet"})})
  * @ORM\Entity(repositoryClass=App\Domain\Infrastructure\Doctrine\Repository\UserRepository::class)
  */
 class User implements UserInterface
@@ -67,7 +70,17 @@ class User implements UserInterface
      *   @ORM\JoinColumn(name="id_user_type", referencedColumnName="id")
      * })
      */
-    private $type;
+    private $userType;
+
+    /**
+     * @var Wallet
+     *
+     * @ORM\ManyToOne(targetEntity="Wallet")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_wallet", referencedColumnName="id")
+     * })
+     */
+    private $wallet;
 
     /**
      * @var \DateTime
@@ -91,16 +104,18 @@ class User implements UserInterface
      * @param string $password
      * @param string $cpfCnpj
      * @param UserType $userType
+     * @param Wallet $wallet
      * @throws \Exception
      */
-    public function __construct(string $uuid, string $name, string $email, string $password, string $cpfCnpj, UserType $userType)
+    public function __construct(string $uuid, string $name, string $email, string $password, string $cpfCnpj, UserType $userType, Wallet $wallet)
     {
         $this->uuid = $uuid;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
         $this->cpfCnpj = $cpfCnpj;
-        $this->type = $userType;
+        $this->userType = $userType;
+        $this->wallet = $wallet;
         $this->createdAt = new \Datetime();
         $this->updatedAt = new \Datetime();
     }
@@ -175,9 +190,17 @@ class User implements UserInterface
     /**
      * @return UserType
      */
-    public function getType(): UserType
+    public function getUserType(): UserType
     {
-        return $this->type;
+        return $this->userType;
+    }
+
+    /**
+     * @return Wallet
+     */
+    public function getWallet(): Wallet
+    {
+        return $this->wallet;
     }
 
     /**

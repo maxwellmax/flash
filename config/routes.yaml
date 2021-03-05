@@ -18,3 +18,6 @@ auth_login:
 
 api_user:
   resource: 'routes/user.yaml'
+
+api_wallet:
+  resource: 'routes/wallet.yaml'

@@ -1,0 +1,9 @@
+api_wallet_create:
+  path: /api/wallet
+  controller: App\Application\Controller\WalletController::create
+  methods: POST
+
+api_wallet_update:
+  path: /api/wallet/{id}
+  controller: App\Application\Controller\WalletController::put
+  methods: PUT
