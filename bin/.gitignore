@@ -1,0 +1,6 @@
+*
+!.gitignore
+!migrations.php
+!console
+!runenv.sh
+!macrunenv.sh

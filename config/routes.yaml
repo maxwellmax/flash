@@ -1,0 +1,20 @@
+#managed by lexik-jwt-authentication, see security.yaml
+register:
+  path: /register
+  controller: App\Application\Controller\AuthController::register
+  methods: POST
+
+auth_login:
+  path: /auth/login
+  controller: App\Application\Controller\AuthController::login
+  methods: POST
+
+#api_auth:
+#  path: /api/auth
+#  controller: App\Application\Controller\AuthController::getTokenUser
+
+#api_auth:
+#  path: /api/auth
+
+api_user:
+  resource: 'routes/user.yaml'

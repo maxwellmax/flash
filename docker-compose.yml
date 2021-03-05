@@ -1,0 +1,44 @@
+version: "3.4"
+x-custom:
+  shared_env: &shared_env
+    PHP_IDE_CONFIG: "serverName=docker"
+services:
+  web:
+    image: nginx:latest
+    privileged: true
+    ports:
+      - "81:80"
+    env_file:
+      - ".env"
+    volumes:
+      - ./:/app
+      - ./environment/nginx/:/etc/nginx/conf.d/
+    links:
+      - php
+
+  php:
+    build: ./environment/php-7
+    privileged: true
+    links:
+      - db
+    ports:
+      - "8082:8080"
+    env_file:
+      - ".env"
+    environment:
+      <<: *shared_env
+    volumes:
+      - ./:/app
+
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "gamora"
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./environment/mysql:/var/lib/mysql
