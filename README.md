@@ -9,6 +9,10 @@
 ```
 $ ./bin/runenv.sh
 ```
+### Importar o DB
+```
+$ docker exec -i flash_db_1 sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < ./environment/mysql/sql/CreateDatabase.sql 
+```
 
 ### Composer
 
