@@ -1,6 +1,6 @@
 # Flash
 
-### Rodando o Projeto (via docker) Symfony 5
+### Rodando o Projeto (via docker)
  * Symfony 5
  * Mysql
  * PHP 7
@@ -40,3 +40,6 @@ http://localhost:81
 * Testes de integração
 * Testes unitários
 * Swagger para Documentação da API
+
+### Rotas
+ * na pasta config/Flash.postman_collection.json esta uma collection do Postman com as rotas para importar na API

@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "0ddacf4c-a9c1-4d37-8c3f-a94dd4167ef9",
+		"name": "Flash",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"\",\n    \"email\": \"\",\n    \"password\": \"\",\n    \"cpfCnpj\": \"\",\n    \"type\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:81/register",
+					"host": [
+						"localhost"
+					],
+					"port": "81",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"\",\n    \"password\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:81/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "81",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTQ5NDYzNTAsImV4cCI6MTYxNDk0OTk1MCwicm9sZXMiOm51bGwsInVzZXJuYW1lIjoibWF4d2VsbGd0aUBob3RtYWlsLmNvbSJ9.aLSboORVD7ec0h9MGbjgWIjVY_gcoLIQeuCJTiSGDytM2IxyfIqqKCi9lhZHsxhj9y121C60N5xzSbka9B3W4E51taN_x-h1Cn_TZe0LdtzFOlyi5IYlU3dpu-TE7x0ZRSo-IHK2OYBTi5y12hL-KdLiycKa0vZZs6EG2iDohxvYmQcqcCdgPRQuOill6HLUuaUSlT7O6qkJdkDL5EF82TUPU0zNaddyYfkr7SRHYiCDO1rdyN450_MxDoqohzLwi-FZfAAPhn4_Zr4f2shuhZtjBZeBpNFvWmaIcovZJqDQaXRHDoK9YdOGEjEUXGPddNX1nDmGjaiHovcIwJ2Ecwkor_xePlZPg0sc-0iilFf2_enEEs3r2jshCj6A0pZcpNDf8iJpPtPxHRL3SV_vmpkT4K3u6W4G_dfihtiqtnxvonRQsx9WSDBvbsLyy2DQzg4VTXms-mEInq0HOuUzKqcaY9puj2RgmnJfLi9qke4GCUIJSxodcYa-PjSIv-d9lX0Wf8QNkuUqSC8VQgXIda9ci9Cm-RJjKvI6HlffmEPyLCoETpQDRaSzJGC6izTDN9hs-N_W7QVPikEcFCZQGByS-wnjfMfWDtLIRwmivyedUfV2dBks29AWCxh25JP_pp5sql1DcTkVCN6jI3fY-w0tOznJ69sa1kjTLO0e5tM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:81/api/user/{id}",
+					"host": [
+						"localhost"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"user",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Wallet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTQ5NTkwNzAsImV4cCI6MTYxNDk2MjY3MCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoibWF4d2VsbGd0aUBob3RtYWlsLmNvbSJ9.HdaH5809e1nm3FZtBV4u5LdD7gQn8jizp0bfYZaYVJKmB7eQw6I2rcWGYZPol1eXXqdc-VxiZe-huwdnAynmk8FFAcfLMnYNTMIEPc9Pq56SpBa_HiXB9T__CShz_06a-SaNaA-R9myScqxr6aTdWqiZ5zfFR6WlX_VWKeQd3mKOjlj3moUSnEWrPZLIdAFOypUWzxAbzW-CfEayRlaLcAnKyQESFUKlIrF7J1-fxUttoDeow1Sll1c34sBId6Lpj98Y3Rp9zT3J0i8sjYtQ3j4hlPgzKIMdni9rRU-jnXZsg_JPe7n4W50bZhkIDiXsDGSyhk5RFqr-vdLPsP-i8Vje9xtS669kiARkiwDlCmk_c_bbTCynlwapCNycj10IKAQLAXWgH11aGfl1titDAuuiHg3y0e-bs2YQR8uCp12yxNSFAGbdXywjYJcV7dhKag5h7QQ4G32buphs5uwxLog0WU_5n1CdQ_BdjpFvzZqNtrDGiXAJAuG5ELZFfboLiusGRmM8sNPGMD2xEPuZTxb8WR-wtPDKMNiMRU5bcFc_5Y9FgZ-B5vzvrm99uTFd7c72zt8wSQOZPBeIXsGN2lT1tBXp9c3b5SUq2R7dIejO31viYE7NX-PHABfduF7WCLPuiUpeVPKjOCqUGwHmX_Epx38Q3H55XyAH0RBPnrk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"balance\": \"100.00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:81/api/wallet/{id}",
+					"host": [
+						"localhost"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"wallet",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTQ5ODA2MTgsImV4cCI6MTYxNDk4NDIxOCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoibWF4d2VsbGd0aUBob3RtYWlsLmNvbSJ9.HZTlBaMhTeg-RuOt_AYxPsVJ2t9DT-f4ccJO4TQ6AgOPWfAdj7gY3C9lNunAlf8IMm4BVpByPs2bHzeDOJcwqrXwRI-l0pxFHHtWjOfm9gYQ3mJLJOpOv7o_RDgmKSndQDnOo_ECf-ymdprcVZLpktlkBJLGBk1ttuU6lCVGygsuhWheMMlL8XScoBNgJY87Ks7zSe_t--ZInTWN3ojs26IBCjNdvInNMvDVCR-2KVUaDVp5CdINzw9GwnCSIEUe-5zCINjOIPj1mGfXPHyEIu4RAemuIJXKVbjmaspTsCRfrbvDCR5O9-fvtOVGZaGvo15rUm5GDghDSDH2aLEcK_1cJ5VxdmmfZh4UdAv58h_VoVn1ofemeZLKUEHO4TKiVHNmFHw1ie1nUZ2N90bLcuYzwDxFxlQxNTME5nbNZsQogNZ5Ozy1FsWYAxzDUTnN4Mlg4HjxfWg5Ofo53QW22JMD3oZH2mI9ulLFsK7-Ff_HZoJ3a5vREE1446NrFEpUsLnGMvF5L9R5gIkk8xt9yT8lCc8ELvuBc_7O8AuPwUMFD3mnjmPKo1TkJjbEVaW6SJ1CRT8KatPAF4hsmhPXkFOulxjTqee4mr1BfTkqgeST1QxzgiPOQPE_qkfVwJvpW7MgI5-yGscQUHL2-PAt77wZFqEnhxefvlcrIXIwtNs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\" : 200.00,\n    \"payer\" : 14,\n    \"payee\" : 15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:81/api/transaction",
+					"host": [
+						"localhost"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
